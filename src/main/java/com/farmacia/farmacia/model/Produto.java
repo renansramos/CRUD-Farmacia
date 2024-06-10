@@ -1,9 +1,12 @@
 package com.farmacia.farmacia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +28,18 @@ public class Produto {
     @NotNull(message = "O preço do produto não pode estar em branco")
     @PositiveOrZero(message = "O preço do produto deve ser maior ou igual a zero")
     private Double preco_produto;
+    
+    @ManyToOne
+    @JsonIgnoreProperties("Produto")
+    private Categoria categoria;
+
+    public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 
 	public Long getId() {
 		return id;
